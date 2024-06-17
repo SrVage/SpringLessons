@@ -62,6 +62,7 @@ public class InputServiceImpl implements InputService{
         try {
             logger.info("Введите email удаляемого контакта:");
             String email = reader.readLine();
+            contactsService.deleteContactByEmail(email);
         } catch (Exception exception){
             exception.printStackTrace();
         }

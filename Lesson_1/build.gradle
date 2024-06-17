@@ -13,6 +13,7 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.32'
     annotationProcessor 'org.projectlombok:lombok:1.18.32'
     implementation 'org.springframework:spring-context:6.1.9'
+    implementation 'org.springframework.boot:spring-boot-starter-logging:3.3.0'
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     implementation 'org.yaml:snakeyaml:2.2'

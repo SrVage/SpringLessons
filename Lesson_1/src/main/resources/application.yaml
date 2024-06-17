@@ -1,2 +1,9 @@
+spring:
+  profiles:
+    active: "init"
+logging:
+  level:
+    org.springframework: DEBUG
 app:
   contact-file-path: contacts.txt
+  default-contact-path: default-contacts.txt

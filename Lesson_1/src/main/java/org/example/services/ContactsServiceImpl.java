@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.entities.Contact;
 import org.example.exceptions.BadFormatException;
 import org.example.tools.CheckFormat;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -16,6 +17,8 @@ import java.util.Set;
 public class ContactsServiceImpl implements ContactsService{
     private final Set<Contact> contacts = new HashSet<>();
     private final SaveService saveService;
+    @Value("${spring.profiles.active}")
+    private String env;
 
     @Override
     public void add(String fullName, String phoneNumber, String email) throws BadFormatException{
@@ -31,6 +34,7 @@ public class ContactsServiceImpl implements ContactsService{
 
     @Override
     public String showAllContacts(){
+        System.out.println(env);
         StringBuilder builder = new StringBuilder();
         contacts.forEach(contact -> builder.append(contact).append("\n"));
         return builder.toString();
