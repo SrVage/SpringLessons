@@ -1,7 +1,6 @@
 package org.example.services;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -11,14 +10,12 @@ import java.nio.charset.StandardCharsets;
 public class ReadFromFileService implements ReadService{
     private final ContactsService contactsService;
     private final String filePath;
-    private final String activeProfile;
 
     public ReadFromFileService(ContactsService contactsService,
                                @Value("${app.default-contact-path}") String filePath,
                                @Value("${spring.profiles.active}") String activeProfile){
         this.contactsService = contactsService;
         this.filePath = filePath;
-        this.activeProfile = activeProfile;
         if (!activeProfile.equals("init")){
             return;
         }

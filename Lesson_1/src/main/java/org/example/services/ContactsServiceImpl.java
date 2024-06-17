@@ -1,10 +1,10 @@
 package org.example.services;
 
 import lombok.RequiredArgsConstructor;
+import org.example.Messages;
 import org.example.entities.Contact;
 import org.example.exceptions.BadFormatException;
 import org.example.tools.CheckFormat;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -17,8 +17,6 @@ import java.util.Set;
 public class ContactsServiceImpl implements ContactsService{
     private final Set<Contact> contacts = new HashSet<>();
     private final SaveService saveService;
-    @Value("${spring.profiles.active}")
-    private String env;
 
     @Override
     public void add(String fullName, String phoneNumber, String email) throws BadFormatException{
@@ -28,13 +26,12 @@ public class ContactsServiceImpl implements ContactsService{
         Contact contact = new Contact(fullName, phoneNumber, email);
         var result  = contacts.add(contact);
         if (!result){
-            throw new IllegalArgumentException("Уже есть такой пользователь");
+            throw new IllegalArgumentException(Messages.HAS_CONTACT_EXCEPTION.toString());
         }
     }
 
     @Override
     public String showAllContacts(){
-        System.out.println(env);
         StringBuilder builder = new StringBuilder();
         contacts.forEach(contact -> builder.append(contact).append("\n"));
         return builder.toString();
@@ -48,7 +45,7 @@ public class ContactsServiceImpl implements ContactsService{
         if (optionalContact.isPresent()){
             contacts.remove(optionalContact.get());
         } else{
-            throw new NoSuchElementException("Нет такого контакта");
+            throw new NoSuchElementException(Messages.CONTACT_NOT_FOUND_EXCEPTION.toString());
         }
     }
 

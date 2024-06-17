@@ -1,6 +1,7 @@
 package org.example.services;
 
 import lombok.NoArgsConstructor;
+import org.example.Messages;
 import org.example.entities.Contact;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -39,7 +40,7 @@ public class SaveInFileService implements SaveService{
             Files.writeString(Path.of(filePath), contacts,
                     StandardOpenOption.CREATE, StandardOpenOption.WRITE, StandardOpenOption.APPEND);
         } catch (IOException e) {
-            throw new IOException("Ошибка при записи в файл");
+            throw new IOException(Messages.WRITE_IN_FILE_EXCEPTION.toString());
         }
     }
 }

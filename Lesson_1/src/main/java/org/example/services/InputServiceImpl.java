@@ -1,6 +1,7 @@
 package org.example.services;
 
 import lombok.RequiredArgsConstructor;
+import org.example.Messages;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
@@ -20,11 +21,7 @@ public class InputServiceImpl implements InputService{
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         while(true){
             try {
-                logger.info("0 - Выход;\n" +
-                        "1 - Показать все контакты;\n" +
-                        "2 - Добавить новый контакт;\n" +
-                        "3 - Удалить контакт по email;\n" +
-                        "4 - Сохранить контакты в файл.");
+                logger.info(Messages.HELLO_MESSAGE.toString());
                 int input = Integer.parseInt(reader.readLine());
                 switch (input){
                     case 0:
@@ -42,7 +39,7 @@ public class InputServiceImpl implements InputService{
                         saveInFile();
                         break;
                     default:
-                        logger.warning("Нет такой команды");
+                        logger.warning(Messages.BAD_OPERATION.toString());
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -60,7 +57,7 @@ public class InputServiceImpl implements InputService{
 
     private void deleteContact(BufferedReader reader) {
         try {
-            logger.info("Введите email удаляемого контакта:");
+            logger.info(Messages.INPUT_EMAIL_FOR_DELETE.toString());
             String email = reader.readLine();
             contactsService.deleteContactByEmail(email);
         } catch (Exception exception){
@@ -70,13 +67,13 @@ public class InputServiceImpl implements InputService{
 
     private void addNewContact(BufferedReader reader) {
         try {
-            logger.info("Введите имя контакта:");
+            logger.info(Messages.INPUT_CONTACT_NAME.toString());
             String fullName = reader.readLine();
 
-            logger.info("Введите номер телефона: ");
+            logger.info(Messages.INPUT_PHONE_NUMBER.toString());
             String phoneNumber = reader.readLine();
 
-            logger.info("Введите номер email: ");
+            logger.info(Messages.INPUT_EMAIL.toString());
             String email = reader.readLine();
 
             contactsService.add(fullName, phoneNumber, email);
