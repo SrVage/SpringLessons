@@ -1,17 +1,21 @@
 package org.example.services;
 
+import lombok.RequiredArgsConstructor;
 import org.example.entities.Contact;
 import org.example.exceptions.BadFormatException;
 import org.example.tools.CheckFormat;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
 @Component
+@RequiredArgsConstructor
 public class ContactsServiceImpl implements ContactsService{
-    Set<Contact> contacts = new HashSet<>();
+    private final Set<Contact> contacts = new HashSet<>();
+    private final SaveService saveService;
 
     @Override
     public void add(String fullName, String phoneNumber, String email) throws BadFormatException{
@@ -42,5 +46,10 @@ public class ContactsServiceImpl implements ContactsService{
         } else{
             throw new NoSuchElementException("Нет такого контакта");
         }
+    }
+
+    @Override
+    public void saveContacts() throws IOException {
+        saveService.save(contacts);
     }
 }

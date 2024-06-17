@@ -51,6 +51,11 @@ public class InputServiceImpl implements InputService{
     }
 
     private void saveInFile() {
+        try {
+            contactsService.saveContacts();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void deleteContact(BufferedReader reader) {
