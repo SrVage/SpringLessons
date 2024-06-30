@@ -4,3 +4,6 @@ spring:
 logging:
   level:
     org.jline: DEBUG
+app:
+  auto-create-students:
+    enabled: false

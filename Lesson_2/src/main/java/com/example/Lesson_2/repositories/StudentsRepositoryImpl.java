@@ -20,7 +20,6 @@ public class StudentsRepositoryImpl implements StudentsRepository{
     @Override
     public Student saveStudent(Student student){
         student.setId(maxNumber++);
-        //System.out.println(student);
         students.add(student);
         return student;
     }
@@ -28,8 +27,8 @@ public class StudentsRepositoryImpl implements StudentsRepository{
     @Override
     public boolean deleteStudent(int id){
         var deleteStudent = students.stream().filter(item->item.getId() == id)
-                .findFirst().orElseThrow(()->new NoSuchElementException("Нет студента с таким id"));
-        return students.remove(deleteStudent);
+                .findFirst();
+        return deleteStudent.filter(students::remove).isPresent();
     }
 
     @Override
