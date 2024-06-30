@@ -18,10 +18,11 @@ public class StudentsRepositoryImpl implements StudentsRepository{
     }
 
     @Override
-    public boolean saveStudent(Student student){
+    public Student saveStudent(Student student){
         student.setId(maxNumber++);
-        System.out.println(student);
-        return students.add(student);
+        //System.out.println(student);
+        students.add(student);
+        return student;
     }
 
     @Override

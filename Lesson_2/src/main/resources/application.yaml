@@ -1,10 +1,6 @@
 spring:
   application:
     name: Lesson_2
-  shell:
-    terminal:
-      jline:
-        terminal: auto
 logging:
   level:
     org.jline: DEBUG

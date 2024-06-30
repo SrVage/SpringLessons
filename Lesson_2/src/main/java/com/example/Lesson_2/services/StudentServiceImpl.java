@@ -1,6 +1,9 @@
 package com.example.Lesson_2.services;
 
 import com.example.Lesson_2.entities.Student;
+import com.example.Lesson_2.events.Event;
+import com.example.Lesson_2.events.EventHandler;
+import com.example.Lesson_2.events.EventQueue;
 import com.example.Lesson_2.repositories.StudentsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.shell.standard.ShellComponent;
@@ -10,11 +13,13 @@ import org.springframework.shell.standard.ShellMethod;
 @RequiredArgsConstructor
 public class StudentServiceImpl {
     private final StudentsRepository studentsRepository;
+    private final EventQueue eventQueue;
 
     @ShellMethod
     public String add(String firstName, String secondName, int age){
         Student student = new Student(firstName, secondName, age);
-        studentsRepository.saveStudent(student);
+        var saveStudent = studentsRepository.saveStudent(student);
+        eventQueue.addEvent(new Event("Added: " + saveStudent));
         return "Added";
     }
 

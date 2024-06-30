@@ -7,7 +7,7 @@ import java.util.Set;
 public interface StudentsRepository {
     Set<Student> getStudents();
 
-    boolean saveStudent(Student student);
+    Student saveStudent(Student student);
 
     boolean deleteStudent(int id);
 
